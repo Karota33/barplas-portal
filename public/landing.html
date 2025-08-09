@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARPLAS Canarias - Soluciones de Embalaje y Hostelería</title>
+    <style>
+        /* Reset y base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #009E40 0%, #00752e 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .menu a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #dcfce7;
+        }
+
+        .portal-btn {
+            background: white !important;
+            color: #009E40 !important;
+            font-weight: 600 !important;
+            padding: 0.7rem 1.5rem !important;
+            border-radius: 8px !important;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .portal-btn:hover {
+            background: #f0fdf4 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Main Content */
+        .main {
+            padding: 4rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            color: #009E40;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .benefits {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 4rem;
+            border: 2px solid #009E40;
+        }
+
+        .benefits h3 {
+            color: #009E40;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .benefits-list {
+            list-style: none;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .benefits-list li {
+            padding: 0.8rem 0;
+            font-size: 1.1rem;
+            color: #333;
+            border-bottom: 1px solid rgba(0,158,64,0.2);
+        }
+
+        .benefits-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact Form */
+        .contact-section {
+            background: linear-gradient(135deg, #1863DC 0%, #1e40af 100%);
+            padding: 4rem 0;
+            border-radius: 20px;
+            margin: 4rem 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .form-title {
+            color: #009E40;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .form-subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #009E40;
+            box-shadow: 0 0 0 3px rgba(0,158,64,0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #009E40 0%, #00752e 100%);
+            color: white;
+            padding: 1.2rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #00752e 0%, #065f46 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,158,64,0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .copyright {
+            font-weight: 500;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: right;
+        }
+
+        .contact-info p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .menu {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .description {
+                font-size: 1.1rem;
+            }
+            
+            .benefits {
+                padding: 1.5rem;
+            }
+            
+            .form-container {
+                padding: 2rem 1.5rem;
+                margin: 0 15px;
+            }
+            
+            .form-title {
+                font-size: 1.6rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-info {
+                text-align: center;
+            }
+        }
+
+        /* Estados de validación */
+        .form-group input.error,
+        .form-group textarea.error {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+        }
+
+        .form-group input.success,
+        .form-group textarea.success {
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(22,163,74,0.1);
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav">
+                <div class="logo">
+                    <h2>BARPLAS Canarias</h2>
+                </div>
+                <nav class="menu">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#servicios">Servicios</a>
+                    <a href="#nosotros">Sobre Nosotros</a>
+                    <a href="#contacto">Contacto</a>
+                    <a href="/" class="portal-btn">🏪 Acceso Portal</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <section class="hero" id="inicio">
+                <h1 class="title">Tu Proveedor de Confianza en Embalaje y Productos de Hostelería en Canarias</h1>
+                
+                <p class="description">
+                    Desde 2013, suministramos productos de embalaje industrial y hostelería de alta calidad a empresas canarias. 
+                    Ofrecemos soluciones económicas y eficientes para restaurantes, hoteles, transporte y agricultura.
+                </p>
+
+                <div class="benefits" id="servicios">
+                    <h3>¿Por qué elegir BARPLAS?</h3>
+                    <ul class="benefits-list">
+                        <li>✓ Amplio catálogo de productos de embalaje y hostelería</li>
+                        <li>✓ Precios competitivos con calidad garantizada</li>
+                        <li>✓ Servicio personalizado y entrega rápida en Canarias</li>
+                        <li>✓ Portal digital para pedidos 24/7</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Contact Form -->
+            <section class="contact-section" id="contacto">
+                <div class="form-container">
+                    <h2 class="form-title">Solicita tu Presupuesto sin Compromiso</h2>
+                    <p class="form-subtitle">Cuéntanos qué necesitas y te ayudaremos a encontrar la mejor solución</p>
+                    
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo *</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa">Empresa</label>
+                            <input type="text" id="empresa" name="empresa">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">Cuéntanos qué productos necesitas *</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Ej: Necesito envases para takeaway, film transparente para embalaje, etc." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Enviar Solicitud</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="nosotros">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p class="copyright">© 2025 BARPLAS Canarias | Todos los derechos reservados</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #ccc;">
+                        Fundada en 2013 en Santa Cruz de Tenerife - Polígono Industrial Güímar
+                    </p>
+                </div>
+                <div class="contact-info">
+                    <p>📧 info@barplascanarias.com</p>
+                    <p>📞 +34 922 XXX XXX</p>
+                    <p>📍 Polígono Industrial Güímar, Tenerife</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Validación del formulario integrada
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.querySelector('.submit-btn');
+
+            function showError(input, message) {
+                input.classList.add('error');
+                input.classList.remove('success');
+                
+                let errorMsg = input.parentNode.querySelector('.error-message');
+                if (!errorMsg) {
+                    errorMsg = document.createElement('div');
+                    errorMsg.className = 'error-message';
+                    input.parentNode.appendChild(errorMsg);
+                }
+                errorMsg.textContent = message;
+                errorMsg.classList.add('show');
+            }
+
+            function showSuccess(input) {
+                input.classList.add('success');
+                input.classList.remove('error');
+                
+                const errorMsg = input.parentNode.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.classList.remove('show');
+                }
+            }
+
+            function validateEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            function validatePhone(phone) {
+                const phoneRegex = /^(\+34|0034|34)?[6-9][0-9]{8}$/;
+                return phoneRegex.test(phone.replace(/\s/g, ''));
+            }
+
+            function validateField(field) {
+                const value = field.value.trim();
+                const fieldName = field.name;
+
+                switch(fieldName) {
+                    case 'nombre':
+                        if (value === '') {
+                            showError(field, 'El nombre es obligatorio');
+                            return false;
+                        } else if (value.length < 2) {
+                            showError(field, 'El nombre debe tener al menos 2 caracteres');
+                            return false;
+                        } else {
+                            showSuccess(field);
+                            return true;
+                        }
+
+                    case 'email':
+                        if (value === '') {
+                            showError(field, 'El email es obligatorio');
+                            return false;
+                        } else if (!validateEmail(value)) {
+                            showError(field, 'Por favor, introduce un email válido');
+                            return false;
+                        } else {
+                            showSuccess(field);
+                            return true;
+                        }
+
+                    case 'telefono':
+                        if (value === '') {
+                            showError(field, 'El teléfono es obligatorio');
+                            return false;
+                        } else if (!validatePhone(value)) {
+                            showError(field, 'Por favor, introduce un teléfono válido');
+                            return false;
+                        } else {
+                            showSuccess(field);
+                            return true;
+                        }
+
+                    case 'mensaje':
+                        if (value === '') {
+                            showError(field, 'El mensaje es obligatorio');
+                            return false;
+                        } else if (value.length < 10) {
+                            showError(field, 'El mensaje debe tener al menos 10 caracteres');
+                            return false;
+                        } else {
+                            showSuccess(field);
+                            return true;
+                        }
+
+                    default:
+                        return true;
+                }
+            }
+
+            form.querySelectorAll('input, textarea').forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        this.classList.remove('error');
+                        const errorMsg = this.parentNode.querySelector('.error-message');
+                        if (errorMsg) {
+                            errorMsg.classList.remove('show');
+                        }
+                    }
+                });
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const requiredFields = form.querySelectorAll('input[required], textarea[required]');
+                let isValid = true;
+
+                requiredFields.forEach(field => {
+                    if (!validateField(field)) {
+                        isValid = false;
+                    }
+                });
+
+                if (isValid) {
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Enviando...';
+                    submitBtn.disabled = true;
+
+                    setTimeout(() => {
+                        alert('¡Formulario enviado correctamente! Gracias por contactarnos. Nos pondremos en contacto contigo muy pronto.');
+                        form.reset();
+                        
+                        form.querySelectorAll('input, textarea').forEach(input => {
+                            input.classList.remove('success', 'error');
+                        });
+
+                        form.querySelectorAll('.error-message').forEach(msg => {
+                            msg.classList.remove('show');
+                        });
+
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+
+                    }, 1500);
+
+                } else {
+                    const firstError = form.querySelector('.error');
+                    if (firstError) {
+                        firstError.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                        firstError.focus();
+                    }
+                }
+            });
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

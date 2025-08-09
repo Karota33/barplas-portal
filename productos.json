@@ -1,0 +1,20 @@
+[
+  {
+    "sku": "BAR-ALU-R27",
+    "nombre": "Envase de Aluminio R-27",
+    "precio": 0.45,
+    "url_imagen": "https://barplascanarias.com/wp-content/uploads/2019/07/ENVASES-DE-ALUMINIO.jpg"
+  },
+  {
+    "sku": "BAR-FILM-M23",
+    "nombre": "Film Extensible Manual 23 Micras",
+    "precio": 12.50,
+    "url_imagen": "https://barplascanarias.com/wp-content/uploads/2019/07/FILM-EXTENSIBLE-MANUAL.jpg"
+  },
+  {
+    "sku": "BAR-BOLS-PAP-ASA",
+    "nombre": "Bolsas de Papel con Asa",
+    "precio": 0.30,
+    "url_imagen": "https://barplascanarias.com/wp-content/uploads/2019/07/BOLSAS-DE-PAPEL-CON-ASA-PLANA-O-RIZADA.jpg"
+  }
+]

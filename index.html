@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- PWA Meta Tags -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIyNCIgZmlsbD0iIzAwOUU0MCIvPgogIDx0ZXh0IHg9Ijk2IiB5PSIxMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtIiBmb250LXNpemU9IjkwIiBmb250LXdlaWdodD0iYm9sZCI+QjwvdGV4dD4KPC9zdmc+" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIyNCIgZmlsbD0iIzAwOUU0MCIvPgogIDx0ZXh0IHg9Ijk2IiB5PSIxMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLCAtYXBwbGUtc3lzdGVtIiBmb250LXNpemU9IjkwIiBmb250LXdlaWdodD0iYm9sZCI+QjwvdGV4dD4KPC9zdmc+" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    
+    <!-- App Info -->
+    <title>BARPLAS Portal Comercial</title>
+    <meta name="description" content="Portal comercial para gestión de clientes y pedidos - BARPLAS Canarias" />
+    <meta name="author" content="BARPLAS Canarias" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#009E40" />
+    <meta name="msapplication-TileColor" content="#009E40" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="BARPLAS Portal" />
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/productos.json" as="fetch" crossorigin />
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    
+    <!-- Performance Optimization -->
+    <meta http-equiv="Cache-Control" content="max-age=31536000" />
+    
+    <style>
+      /* Critical CSS for faster loading */
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f8fafc;
+      }
+      
+      /* App Loading Screen */
+      .app-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #009E40 0%, #00752e 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        color: white;
+      }
+      
+      .app-loading .logo {
+        width: 80px;
+        height: 80px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        backdrop-filter: blur(10px);
+      }
+      
+      .app-loading h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+      
+      .app-loading p {
+        opacity: 0.8;
+        margin-bottom: 2rem;
+      }
+      
+      .app-loading .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      
+      /* PWA Install Banner */
+      .pwa-install-banner {
+        position: fixed;
+        bottom: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border: 2px solid #009E40;
+        border-radius: 15px;
+        padding: 1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        z-index: 1000;
+        transition: bottom 0.3s ease;
+        max-width: 90%;
+        width: 350px;
+      }
+      
+      .pwa-install-banner.show {
+        bottom: 20px;
+      }
+      
+      .pwa-install-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .pwa-install-icon {
+        width: 50px;
+        height: 50px;
+        background: #009E40;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        flex-shrink: 0;
+      }
+      
+      .pwa-install-text h3 {
+        margin: 0 0 0.25rem 0;
+        color: #009E40;
+        font-size: 0.9rem;
+      }
+      
+      .pwa-install-text p {
+        margin: 0;
+        color: #666;
+        font-size: 0.8rem;
+      }
+      
+      .pwa-install-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      
+      .pwa-install-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .pwa-install-btn.primary {
+        background: #009E40;
+        color: white;
+      }
+      
+      .pwa-install-btn.primary:hover {
+        background: #00752e;
+      }
+      
+      .pwa-install-btn.secondary {
+        background: #f3f4f6;
+        color: #666;
+      }
+      
+      .pwa-install-btn.secondary:hover {
+        background: #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- App Loading Screen -->
+    <div id="app-loading" class="app-loading">
+      <div class="logo">B</div>
+      <h1>BARPLAS Portal</h1>
+      <p>Cargando aplicación comercial...</p>
+      <div class="spinner"></div>
+    </div>
+    
+    <!-- PWA Install Banner -->
+    <div id="pwa-install-banner" class="pwa-install-banner">
+      <div class="pwa-install-content">
+        <div class="pwa-install-icon">B</div>
+        <div class="pwa-install-text">
+          <h3>Instalar App</h3>
+          <p>Instala BARPLAS Portal para acceso rápido</p>
+        </div>
+      </div>
+      <div class="pwa-install-actions">
+        <button id="pwa-install-btn" class="pwa-install-btn primary">Instalar</button>
+        <button id="pwa-dismiss-btn" class="pwa-install-btn secondary">Ahora no</button>
+      </div>
+    </div>
+    
+    <!-- App Root -->
+    <div id="root"></div>
+    
+    <script>
+      // PWA Install Prompt
+      let deferredPrompt;
+      
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show install banner after 3 seconds
+        setTimeout(() => {
+          const banner = document.getElementById('pwa-install-banner');
+          banner.classList.add('show');
+        }, 3000);
+      });
+      
+      document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          
+          if (outcome === 'accepted') {
+            console.log('BARPLAS PWA: Usuario acepto instalar la app');
+          }
+          
+          deferredPrompt = null;
+          document.getElementById('pwa-install-banner').classList.remove('show');
+        }
+      });
+      
+      document.getElementById('pwa-dismiss-btn').addEventListener('click', () => {
+        document.getElementById('pwa-install-banner').classList.remove('show');
+        // Remember user dismissed for 7 days
+        localStorage.setItem('pwa-dismissed', Date.now() + (7 * 24 * 60 * 60 * 1000));
+      });
+      
+      // Check if user previously dismissed
+      const dismissed = localStorage.getItem('pwa-dismissed');
+      if (dismissed && Date.now() < parseInt(dismissed)) {
+        deferredPrompt = null;
+      }
+      
+      // Hide loading screen when app loads
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loading = document.getElementById('app-loading');
+          if (loading) {
+            loading.style.opacity = '0';
+            setTimeout(() => loading.remove(), 300);
+          }
+        }, 1000);
+      });
+      
+      // Register Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+          try {
+            const registration = await navigator.serviceWorker.register('/sw.js');
+            console.log('BARPLAS PWA: Service Worker registrado correctamente', registration.scope);
+            
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // New version available
+                  if (confirm('Nueva versión disponible. ¿Recargar para actualizar?')) {
+                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                    window.location.reload();
+                  }
+                }
+              });
+            });
+            
+          } catch (error) {
+            console.error('BARPLAS PWA: Error registrando Service Worker:', error);
+          }
+        });
+      }
+      
+      // Connection Status
+      function updateConnectionStatus() {
+        if (!navigator.onLine) {
+          console.log('BARPLAS PWA: Aplicación en modo offline');
+        }
+      }
+      
+      window.addEventListener('online', () => {
+        console.log('BARPLAS PWA: Conexión restablecida');
+      });
+      
+      window.addEventListener('offline', updateConnectionStatus);
+      
+      updateConnectionStatus();
+    </script>
+    
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

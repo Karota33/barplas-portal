@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BARPLAS Icon Generator</title>
+</head>
+<body style="margin: 0; padding: 20px; font-family: system-ui;">
+    <h2>BARPLAS PWA Icon Generator</h2>
+    <p>Right-click on the icons below and save them as PNG files:</p>
+    
+    <!-- 192x192 Icon -->
+    <div style="margin: 20px 0;">
+        <h3>Icon 192x192 (right-click → Save image as → icon-192.png)</h3>
+        <canvas id="icon192" width="192" height="192" style="border: 1px solid #ccc;"></canvas>
+    </div>
+    
+    <!-- 512x512 Icon -->
+    <div style="margin: 20px 0;">
+        <h3>Icon 512x512 (right-click → Save image as → icon-512.png)</h3>
+        <canvas id="icon512" width="512" height="512" style="border: 1px solid #ccc;"></canvas>
+    </div>
+
+    <script>
+        function createIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Background with rounded corners
+            ctx.fillStyle = '#009E40';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Add rounded corners effect
+            const cornerRadius = size * 0.125; // 12.5% radius
+            
+            // Clear corners to create rounded effect (simplified)
+            ctx.globalCompositeOperation = 'destination-in';
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, cornerRadius);
+            ctx.fill();
+            ctx.globalCompositeOperation = 'source-over';
+            
+            // Add "B" letter
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size * 0.45}px system-ui, -apple-system, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('B', size / 2, size / 2);
+            
+            // Add subtle shadow/depth effect
+            ctx.globalCompositeOperation = 'multiply';
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, 'rgba(0,0,0,0)');
+            gradient.addColorStop(1, 'rgba(0,0,0,0.1)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            ctx.globalCompositeOperation = 'source-over';
+        }
+        
+        // Create both icons
+        createIcon('icon192', 192);
+        createIcon('icon512', 512);
+        
+        // Add download functionality
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Add download buttons
+        const container = document.body;
+        
+        const download192Btn = document.createElement('button');
+        download192Btn.textContent = 'Download 192x192 PNG';
+        download192Btn.style.margin = '10px';
+        download192Btn.style.padding = '10px 20px';
+        download192Btn.style.background = '#009E40';
+        download192Btn.style.color = 'white';
+        download192Btn.style.border = 'none';
+        download192Btn.style.borderRadius = '8px';
+        download192Btn.style.cursor = 'pointer';
+        download192Btn.onclick = () => downloadIcon('icon192', 'icon-192.png');
+        
+        const download512Btn = document.createElement('button');
+        download512Btn.textContent = 'Download 512x512 PNG';
+        download512Btn.style.margin = '10px';
+        download512Btn.style.padding = '10px 20px';
+        download512Btn.style.background = '#009E40';
+        download512Btn.style.color = 'white';
+        download512Btn.style.border = 'none';
+        download512Btn.style.borderRadius = '8px';
+        download512Btn.style.cursor = 'pointer';
+        download512Btn.onclick = () => downloadIcon('icon512', 'icon-512.png');
+        
+        container.appendChild(download192Btn);
+        container.appendChild(download512Btn);
+        
+        console.log('BARPLAS PWA Icons generated successfully!');
+    </script>
+</body>
+</html>

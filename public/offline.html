@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARPLAS Portal - Sin Conexión</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .offline-container {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,158,64,0.1);
+            border: 2px solid #009E40;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #009E40 0%, #00752e 100%);
+            border-radius: 20px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .offline-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.6;
+        }
+        
+        h1 {
+            color: #009E40;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .retry-btn {
+            background: linear-gradient(135deg, #009E40 0%, #00752e 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        
+        .retry-btn:hover {
+            background: linear-gradient(135deg, #00752e 0%, #065f46 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,158,64,0.3);
+        }
+        
+        .offline-features {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        
+        .offline-features h3 {
+            color: #009E40;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .offline-features ul {
+            list-style: none;
+        }
+        
+        .offline-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .offline-features li:before {
+            content: "✓";
+            color: #009E40;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .connection-status {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .connection-status.offline {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        
+        .connection-status.online {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .connecting {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="logo">B</div>
+        
+        <div class="offline-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636L5.636 18.364m0-12.728L18.364 18.364M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"></path>
+            </svg>
+        </div>
+        
+        <h1>Sin Conexión a Internet</h1>
+        
+        <p>No se puede conectar con los servidores de BARPLAS. Verifica tu conexión a internet e inténtalo de nuevo.</p>
+        
+        <button class="retry-btn" onclick="location.reload()">
+            Reintentar Conexión
+        </button>
+        
+        <button class="retry-btn" onclick="goHome()" style="background: linear-gradient(135deg, #1863DC 0%, #1e40af 100%);">
+            Ir al Inicio
+        </button>
+        
+        <div class="connection-status offline" id="connectionStatus">
+            🔴 Sin conexión detectada
+        </div>
+        
+        <div class="offline-features">
+            <h3>Funciones disponibles sin conexión:</h3>
+            <ul>
+                <li>Consultar datos guardados localmente</li>
+                <li>Ver productos y precios en cache</li>
+                <li>Crear pedidos (se enviarán al reconectar)</li>
+                <li>Acceder a información de clientes</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = '/'
+        }
+        
+        // Monitorear estado de conexión
+        function updateConnectionStatus() {
+            const statusElement = document.getElementById('connectionStatus')
+            
+            if (navigator.onLine) {
+                statusElement.textContent = '🟢 Conexión restablecida'
+                statusElement.className = 'connection-status online'
+                
+                // Auto-reload después de 2 segundos si vuelve la conexión
+                setTimeout(() => {
+                    location.reload()
+                }, 2000)
+            } else {
+                statusElement.textContent = '🔴 Sin conexión detectada'
+                statusElement.className = 'connection-status offline'
+            }
+        }
+        
+        // Escuchar eventos de conexión
+        window.addEventListener('online', updateConnectionStatus)
+        window.addEventListener('offline', updateConnectionStatus)
+        
+        // Check inicial
+        updateConnectionStatus()
+        
+        // Verificar conexión cada 30 segundos
+        setInterval(() => {
+            if (navigator.onLine) {
+                // Hacer un ping al servidor para verificar conectividad real
+                fetch('/', { method: 'HEAD', cache: 'no-cache' })
+                    .then(() => {
+                        updateConnectionStatus()
+                    })
+                    .catch(() => {
+                        // Aunque navigator.onLine sea true, no hay conexión real
+                        const statusElement = document.getElementById('connectionStatus')
+                        statusElement.textContent = '🟡 Conexión limitada'
+                        statusElement.className = 'connection-status offline'
+                    })
+            }
+        }, 30000)
+        
+        console.log('BARPLAS PWA: Página offline cargada')
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss init:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run build:*)",
+      "Bash(del srccomponentsLazyImageSeparate.jsx)",
+      "Bash(rm:*)",
+      "Bash(touch:*)",
+      "Bash(npm run dev:*)",
+      "WebFetch(domain:barplascanarias.com)",
+      "Bash(vercel:*)",
+      "Bash(surge:*)",
+      "Bash(copy public\\landing.html dist\\landing.html)",
+      "Bash(cp:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": []
+  }
+}
