@@ -15,7 +15,14 @@
       "Bash(copy public\\landing.html dist\\landing.html)",
       "Bash(cp:*)",
       "Bash(gh repo create:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(winget install:*)",
+      "Bash(refreshenv)",
+      "Bash(gh:*)",
+      "Bash(where gh)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
